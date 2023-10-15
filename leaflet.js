@@ -1,61 +1,69 @@
+export{loc, marker};
 
-const map = L.map('map'); 
 // Initializes map
+const map = L.map('map'); 
 
-map.setView([51.505, -0.09], 13); 
 // Sets initial coordinates and zoom level
+map.setView([47, 1.5], 5); 
 
+// Sets map data source and associates with map
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '© OpenStreetMap'
 }).addTo(map); 
-// Sets map data source and associates with map
 
 let marker, circle, zoomed;
+let loc, accuracy;
 
-// const options = {
-//     enableHighAccuracy: true, 
-//     // Get high accuracy reading, if available (default false)
-//     timeout: 5000, 
-//     // Time to return a position successfully before error (default infinity)
-//     maximumAge: 2000, 
-//     // Milliseconds for which it is acceptable to use cached position (default 0)
-// };
+// Add marker on click
+map.on('click', function(e) {
+    accuracy = NaN
+    loc = e.latlng;
+    newMarker(loc);
+});
 
-navigator.geolocation.watchPosition(success, error, options);
-
-function success(pos) {
-
-    const lat = pos.coords.latitude;
-    const lng = pos.coords.longitude;
-    const accuracy = pos.coords.accuracy;
-
-    if (marker) {
-        map.removeLayer(marker);
-        map.removeLayer(circle);
-    }
-    // Removes any existing marker and circule (new ones about to be set)
-
-    marker = L.marker([lat, lng]).addTo(map);
-    circle = L.circle([lat, lng], { radius: accuracy }).addTo(map);
-    // Adds marker to the map and a circle for accuracy
-
-    if (!zoomed) {
+function newMarker(loc){
+// Removes any existing marker and circle
+    if (marker) {map.removeLayer(marker)};
+    if (circle) {map.removeLayer(circle)};
+    
+// Adds marker to the map and a circle for accuracy
+    marker = L.marker(loc).addTo(map);
+    if (accuracy) {
+        circle = L.circle(loc, { radius: accuracy }).addTo(map);  
+    };
+// Set zoom to boundaries of accuracy circle
+    if (!zoomed && circle) {
         zoomed = map.fitBounds(circle.getBounds()); 
-    }
-    // Set zoom to boundaries of accuracy circle
+    };
+// Set map focus to current user position    
+    map.setView(loc);
+};
 
-    map.setView([lat, lng]);
-    // Set map focus to current user position
-
-}
+// Geolocation
+function success(pos){
+    loc = [pos.coords.latitude, pos.coords.longitude];
+    accuracy = pos.coords.accuracy;
+    newMarker(loc)
+};
 
 function error(err) {
-
     if (err.code === 1) {
-        alert("Please allow geolocation access");
+        alert("Merci d'autoriser la géolocalisation");
     } else {
-        alert("Cannot get current location");
+        alert("Impossible de récupérer la localisation actuelle");
     }
+};
 
-}
+const options = {
+    enableHighAccuracy: true, 
+    // Get high accuracy reading, if available (default false)
+//    timeout: 5000, 
+    // Time to return a position successfully before error (default infinity)
+    maximumAge: 2000, 
+    // Milliseconds for which it is acceptable to use cached position (default 0)
+};
+const buttonLocalisation = document.querySelector(".btn-localisation");
+buttonLocalisation.addEventListener("click", function () {
+    navigator.geolocation.getCurrentPosition(success, error, options);
+});

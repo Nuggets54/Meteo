@@ -2,3 +2,33 @@
     height: 500px;
     width: 25%;
 }
+
+#body {
+	max-width: 1200px;
+	margin: auto;
+	padding: 16px;
+}
+
+#header {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-bottom: 16px;
+	padding: 8px;
+	background-color: #7451eb;
+	text-align: center;
+	color: white;
+}
+
+#header img {
+	height: 60px;
+	margin-left: 1rem;
+}
+#header h1 {
+	flex-grow: 1;
+}
+
+#main {
+	display: flex;
+	flex-direction: row;
+}

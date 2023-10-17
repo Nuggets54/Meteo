@@ -1,4 +1,5 @@
-export{loc, marker};
+import {fetch_data} from "./meteo.js";
+//export{loc, marker};
 
 // Initializes map
 const map = L.map('map'); 
@@ -20,31 +21,28 @@ map.on('click', function(e) {
     accuracy = NaN
     loc = e.latlng;
     newMarker(loc);
+    fetch_data(loc["lat"] + "," + loc["lng"]);
 });
 
 function newMarker(loc){
 // Removes any existing marker and circle
     if (marker) {map.removeLayer(marker)};
     if (circle) {map.removeLayer(circle)};
-    
 // Adds marker to the map and a circle for accuracy
     marker = L.marker(loc).addTo(map);
-    if (accuracy) {
-        circle = L.circle(loc, { radius: accuracy }).addTo(map);  
-    };
+    if (accuracy) {circle = L.circle(loc, { radius: accuracy }).addTo(map)};
 // Set zoom to boundaries of accuracy circle
-    if (!zoomed && circle) {
-        zoomed = map.fitBounds(circle.getBounds()); 
-    };
+    if (!zoomed && circle) {zoomed = map.fitBounds(circle.getBounds())};
 // Set map focus to current user position    
     map.setView(loc);
 };
 
 // Geolocation
 function success(pos){
-    loc = [pos.coords.latitude, pos.coords.longitude];
+    loc = {lat: pos.coords.latitude, lng: pos.coords.longitude};
     accuracy = pos.coords.accuracy;
-    newMarker(loc)
+    newMarker(loc);
+    fetch_data(loc["lat"] + "," + loc["lng"]);
 };
 
 function error(err) {
@@ -63,7 +61,9 @@ const options = {
     maximumAge: 2000, 
     // Milliseconds for which it is acceptable to use cached position (default 0)
 };
+
 const buttonLocalisation = document.querySelector(".btn-localisation");
 buttonLocalisation.addEventListener("click", function () {
     navigator.geolocation.getCurrentPosition(success, error, options);
 });
+

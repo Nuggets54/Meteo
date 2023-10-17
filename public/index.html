@@ -3,15 +3,16 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Météo</title>
+        <!-- <title>Météo</title> -->
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
         <link rel="stylesheet" href="style.css"></link>
         <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+        <!-- <script type="module" src="meteo.js"></script> -->
         <script type="module" src="leaflet.js"></script>
     </head>
     <body>
         <header>
-            <img src="images/logo_meteo.jpeg" alt="Météo" height="100px">
+            <img src="../images/logo_meteo.jpeg" alt="Météo" height="100px">
             <h1>Prévisions météo</h1>
         </header>
         <main>
@@ -21,8 +22,9 @@
                 Ville : <input type="text" name="ville">
             </section>
             <section>
-                <script type="module" src="meteo.js"></script>
+                <iframe seamless width="888" height="336" frameborder="0" src="https://www.infoclimat.fr/public-api/mixed/iframeSLIDE?_ll=48.85341,2.3488&_inc=WyJQYXJpcyIsIjQyIiwiMjk4ODUwNyIsIkZSIl0=&_auth=UkhVQg5wBiRQfQcwBXNXflc%2FDzpbLQEmBXkFZlw5VShUPwRlAWFUMgJsUi8EKwQyAC1TMA02AjIFbgtzAHJTMlI4VTkOZQZhUD8HYgUqV3xXeQ9uW3sBJgVuBWRcL1U0VDYEYAF8VDACZVIuBDUEOQA0UywNLQI7BWALZQBqUzNSOVU3DmgGZlA%2BB3oFKldlV2EPbVs3ATgFZgVjXDhVPlQzBDIBN1Q%2FAmlSLgQ9BDAAMVMwDTACPwVjC2gAclMvUkhVQg5wBiRQfQcwBXNXflcxDzFbMA%3D%3D&_c=f63067ba38bb2f7210bd8e2f5cb6cd61"></iframe>
             </section>
         </main>
     </body>
 </html>
+<!-- source : www.infoclimat.fr -->

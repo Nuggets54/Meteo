@@ -6,6 +6,8 @@ app.listen(port, () => {
   });
 app.use(express.static('public'));
 app.use(express.json({ limit: '1mb' }));
+
+// Get method
 app.get('/meteo/:loc', async (request, response) => {
     const loc = request.params.loc.split(',');
     const lat = loc[0];

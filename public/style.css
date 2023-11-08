@@ -1,6 +1,26 @@
 #map { 
     height: 500px;
-    width: 25%;
+    width: 50%;
+	max-width: 750px;
+	margin: auto;
+	border:2px solid rgb(80, 184, 253);
+	border-radius:8px;
+}
+#map.leaflet-control-locate-location-arrow{
+	fill: rgb(32, 116, 82);
+}
+
+#h1{
+	color: #5e9ca0;
+}
+
+#weather_table{
+	margin: auto;
+}
+
+#weather_cell{
+	border:2px solid rgb(80, 184, 253);
+	border-radius:8px;
 }
 
 #body {
@@ -15,20 +35,34 @@
 	align-items: center;
 	margin-bottom: 16px;
 	padding: 8px;
-	background-color: #7451eb;
 	text-align: center;
-	color: white;
 }
 
 #header img {
 	height: 60px;
 	margin-left: 1rem;
 }
-#header h1 {
+
+#h1 {
 	flex-grow: 1;
+	font-size-adjust: initial;
 }
 
 #main {
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 }
+
+#iframe {
+	margin: auto;
+}
+
+footer {
+	margin: auto;
+	font-size: large;
+	display: flex;
+	justify-content: center;
+	padding: 5px;
+	background-color: #50b2b9;
+	color: #fff;
+  }

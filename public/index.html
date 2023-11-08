@@ -3,28 +3,62 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- <title>Météo</title> -->
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+        <title>Météo</title>
         <link rel="stylesheet" href="style.css"></link>
+        <link rel="shortcut icon" type="image/svg" href="./images/favicon.svg">
         <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
-        <!-- <script type="module" src="meteo.js"></script> -->
-        <script type="module" src="leaflet.js"></script>
-    </head>
+        <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />    
+        <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+        <script src="https://unpkg.com/leaflet-control-geocoder@2.4.0/dist/Control.Geocoder.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+        <script type="module" src="map.js"></script>
+        </head>
     <body>
         <header>
-            <img src="../images/logo_meteo.jpeg" alt="Météo" height="100px">
-            <h1>Prévisions météo</h1>
+            <table>
+                <td>
+                    <img src="./images/logo_meteo.jpeg" height="100px">
+                </td>
+                <td>
+                    <h1 id= "h1">Prévisions météo</h1>
+                </td>
+            </table>
         </header>
         <main>
-            <section>
-                <div id="map"></div>
-                <button class="btn-localisation">Géolocalisation</button>
-                Ville : <input type="text" name="ville">
-            </section>
-            <section>
-                <iframe seamless width="888" height="336" frameborder="0" src="https://www.infoclimat.fr/public-api/mixed/iframeSLIDE?_ll=48.85341,2.3488&_inc=WyJQYXJpcyIsIjQyIiwiMjk4ODUwNyIsIkZSIl0=&_auth=UkhVQg5wBiRQfQcwBXNXflc%2FDzpbLQEmBXkFZlw5VShUPwRlAWFUMgJsUi8EKwQyAC1TMA02AjIFbgtzAHJTMlI4VTkOZQZhUD8HYgUqV3xXeQ9uW3sBJgVuBWRcL1U0VDYEYAF8VDACZVIuBDUEOQA0UywNLQI7BWALZQBqUzNSOVU3DmgGZlA%2BB3oFKldlV2EPbVs3ATgFZgVjXDhVPlQzBDIBN1Q%2FAmlSLgQ9BDAAMVMwDTACPwVjC2gAclMvUkhVQg5wBiRQfQcwBXNXflcxDzFbMA%3D%3D&_c=f63067ba38bb2f7210bd8e2f5cb6cd61"></iframe>
-            </section>
+            <div id="map"></div>
+            <!-- <iframe id="iframe" seamless width="888" height="336" frameborder="1" src="https://www.infoclimat.fr/public-api/mixed/iframeSLIDE?_ll=48.85341,2.3488&_inc=WyJQYXJpcyIsIjQyIiwiMjk4ODUwNyIsIkZSIl0=&_auth=UkhVQg5wBiRQfQcwBXNXflc%2FDzpbLQEmBXkFZlw5VShUPwRlAWFUMgJsUi8EKwQyAC1TMA02AjIFbgtzAHJTMlI4VTkOZQZhUD8HYgUqV3xXeQ9uW3sBJgVuBWRcL1U0VDYEYAF8VDACZVIuBDUEOQA0UywNLQI7BWALZQBqUzNSOVU3DmgGZlA%2BB3oFKldlV2EPbVs3ATgFZgVjXDhVPlQzBDIBN1Q%2FAmlSLgQ9BDAAMVMwDTACPwVjC2gAclMvUkhVQg5wBiRQfQcwBXNXflcxDzFbMA%3D%3D&_c=f63067ba38bb2f7210bd8e2f5cb6cd61"></iframe> -->
+            <table id="weather_table">
+                <tr>
+                    <td id="weather_cell">
+                        <div style="width: 800px;"><canvas id="temperature"></canvas></div>
+                    </td>
+                    <td id="weather_cell">
+                        <div style="width: 800px;"><canvas id="pluie"></canvas></div>
+                    </td id="weather_cell">
+                    <td id="weather_cell">
+                        <div style="width: 800px;"><canvas id="pression"></canvas></div>
+                    </td>
+                </tr>
+            <tr>
+                <td id="weather_cell">
+                    <div style="width: 800px;"><canvas id="humidite"></canvas></div>
+                </td>
+                <td id="weather_cell">
+                    <div style="width: 800px;"><canvas id="vent"></canvas></div>
+                </td>
+                <!-- <td id="weather_cell">
+                    <div style="width: 800px;"><canvas id="pression"></canvas></div>
+                </td> -->
+            </tr>
+            </table>
         </main>
+        <footer>
+            Source: 
+            <cite><a href="https://www.infoclimat.fr/"> Infoclimat</a></cite>  
+        </footer>
     </body>
 </html>
-<!-- source : www.infoclimat.fr -->
